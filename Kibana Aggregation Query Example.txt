@@ -1,0 +1,176 @@
+{
+  
+  "size": 0, 
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "terms": {
+            "CountryCategoryId": [
+              125
+            ]
+          }
+        },
+        {
+          "term": {
+            "timePeriod": {
+              "value": "Dec-22"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "numFilter": {
+      
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "terms": {
+                "Level2ID": [
+                  11949
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "aggs": {
+        "numerator": {
+          "aggs": {
+            "weightSum": {
+              "sum": {
+                "field": "D_Weight1"
+              }
+            },
+            "colCount": {
+              "value_count": {
+                "field": "RowID"
+              }
+            },
+            "squareAggregation": {
+              "scripted_metric": {
+                "combine_script": {
+                  "source": "return state.sum;"
+                },
+                "init_script": {
+                  "source": "state.sum = 0;"
+                },
+                "map_script": {
+                  "source": "state.sum += Math.pow(doc['D_Weight1'].value, 2)"
+                },
+                "reduce_script": {
+                  "source": "double sum = 0; for (state in states) { sum += state; } return sum;"
+                }
+              }
+            },
+            "hitsData": {
+              "top_hits": {}
+            }
+          },
+          "composite": {
+            "size": 1000,
+            "sources": [
+              {
+                "CountryCategoryId": {
+                  "terms": {
+                    "field": "CountryCategoryId"
+                  }
+                }
+              },
+              {
+                "timePeriod": {
+                  "terms": {
+                    "field": "timePeriod"
+                  }
+                }
+              },
+              {
+                "Level2": {
+                  "terms": {
+                    "field": "Level2"
+                  }
+                }
+              },
+              {
+                "Measures": {
+                  "terms": {
+                    "field": "Measures"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "denomFilter": {
+      "aggs": {
+        "denominator": {
+          "aggs": {
+            "weightSum": {
+              "sum": {
+                "field": "D_Weight1"
+              }
+            },
+            "colCount": {
+              "value_count": {
+                "field": "RowID"
+              }
+            },
+            "squareAggregation": {
+              "scripted_metric": {
+                "combine_script": {
+                  "source": "return state.sum;"
+                },
+                "init_script": {
+                  "source": "state.sum = 0;"
+                },
+                "map_script": {
+                  "source": "state.sum += Math.pow(doc['D_Weight1'].value, 2)"
+                },
+                "reduce_script": {
+                  "source": "double sum = 0; for (state in states) { sum += state; } return sum;"
+                }
+              }
+            },
+            "hitsData": {
+              "top_hits": {}
+            }
+          },
+          "composite": {
+            "size": 1000,
+            "sources": [
+              {
+                "CountryCategoryId": {
+                  "terms": {
+                    "field": "CountryCategoryId"
+                  }
+                }
+              },
+              {
+                "timePeriod": {
+                  "terms": {
+                    "field": "timePeriod"
+                  }
+                }
+              },
+              {
+                "Measures": {
+                  "terms": {
+                    "field": "Measures"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "filter": {
+        "match_all": {}
+      }
+    }
+  }
+}
