@@ -1,0 +1,17 @@
+{
+  "generatedBy": "Microsoft.NET.Sdk.Functions-3.1.2",
+  "configurationSource": "attributes",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "methods": [
+        "get"
+      ],
+      "authLevel": "function",
+      "name": "req"
+    }
+  ],
+  "disabled": false,
+  "scriptFile": "../bin/coke_beach_reportGenerator_api.dll",
+  "entryPoint": "coke_beach_reportGenerator_api.Functions.User_Management.GetUSMLeftPanel.Run"
+}

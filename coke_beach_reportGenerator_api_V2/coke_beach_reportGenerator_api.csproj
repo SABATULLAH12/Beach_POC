@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Functions\Left Panel Menu\**" />
+    <Compile Remove="Functions\User Management\**" />
+    <Content Remove="Functions\Left Panel Menu\**" />
+    <Content Remove="Functions\User Management\**" />
+    <EmbeddedResource Remove="Functions\Left Panel Menu\**" />
+    <EmbeddedResource Remove="Functions\User Management\**" />
+    <None Remove="Functions\Left Panel Menu\**" />
+    <None Remove="Functions\User Management\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Functions\CheckSampleSize.cs" />
+    <Compile Remove="Functions\GetDataAvailability.cs" />
+    <Compile Remove="Functions\ReportGenerator.cs" />
+    <Compile Remove="Helper\HttpRequestExtensions.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Aspose.Slides.NET" Version="21.1.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+		<PackageReference Include="EnterpriseLibrary.Data" Version="6.0.1304" />
+		<PackageReference Include="NEST" Version="7.17.5" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
+		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+	</ItemGroup>
+</Project>
